@@ -9,7 +9,7 @@ const Body = styled.div`
     flex-direction: column;
     align-items: center;
     background: #afd4c0;
-    height: 100vh;
+    height: 100%;
 `
 const Header = styled.div`
     width: 100%;
@@ -106,7 +106,7 @@ class Dashboard extends Component{
     render(){
         let listingsDisplay = this.state.listings.map((el, i) => {
             return (
-                <Listing>
+                <Listing key={i}>
                     <Pic>
                         <img src={el.img_url} alt=""/>
                     </Pic>
@@ -121,7 +121,7 @@ class Dashboard extends Component{
                         <li>Desired Rent: {el.desired_rent}</li>
                         <li>Address: {el.address}</li>
                         <li>City: {el.city}</li>
-                        <li>State: {el.state}</li>
+                        <li>State: {el.my_state}</li>
                         <li>Zip: {el.zip}</li>
                     </Other>
                 </Listing>

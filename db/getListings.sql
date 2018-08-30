@@ -1,1 +1,2 @@
-select * from houser;
+select * from houser
+where user_id = $1

@@ -1,9 +1,11 @@
 module.exports = {
     login: (req, res) => {
-        req.session.user.id
-        
         const db = req.app.get('db');
-        db.userLogin().then((users) => res.status(200).send(users))
+        const {username, password} = req.body;
+        db.userLogin([username, password]).then((response) => {
+            console.log(222, response)
+            req.session.userId = response[0].id
+            res.sendStatus(200)})
         // .catch( err => {
         //     res.status(500).send({errorMessage: "Oops!"})
         //     console.log(err)
@@ -11,6 +13,11 @@ module.exports = {
     },
     register: (req, res) => {
         const db = req.app.get('db');
+        const {username, password} = req.body;
+        db.registerUser([username, password]).then((response) => {
+            console.log(1111, response)
+            req.session.userId = response[0].id
+            res.sendStatus(200)})
     },
     logout: (req, res) => {
         req.session.destroy();

@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import styled from 'styled-components';
-import logo from './houser_logo.png'
+import logo from './houser_logo.png';
+import axios from 'axios';
 
 const Body = styled.div`
     display: flex;
@@ -32,9 +33,42 @@ class Auth extends Component{
     constructor(){
         super()
         this.state = {
-
+            username: '',
+            password: ''
         }
     }
+    login = () => {
+        let {username, password} = this.state;
+        axios.post('/api/auth/login', {username, password}).then(res => {
+            this.setState({
+                username: res.data,
+                password: res.data
+            })
+            this.props.history.push('/dashboard')
+        })
+    }
+    register = () => {
+        let {username, password} = this.state;
+        axios.post('/api/auth/register', {username, password}).then(res => {
+            this.setState({
+                username: res.data,
+                password: res.data
+            })
+            this.props.history.push('/dashboard')
+        })
+    }
+    handleName = (e) => {
+        this.setState({
+            username: e.target.value
+        })
+    }
+    handlePass = (e) => {
+        this.setState({
+            password: e.target.value
+        })
+    }
+
+
     render(){
         return(
             <Body>
@@ -42,13 +76,13 @@ class Auth extends Component{
                     <img src={logo} alt=""/>
                     <br/>
                     <br/>
-                    Username <input type="text"/>
+                    Username <input onChange={this.handleName} type="text"/>
                     <br/>
-                    Password <input type="text"/>
+                    Password <input onChange={this.handlePass} type="text"/>
                     <br/>
                     <br/>
-                    <Button>Login</Button>
-                    <Button2>Register</Button2>
+                    <Button onClick={this.login} >Login</Button>
+                    <Button2 onClick={this.register} >Register</Button2>
                 </Middle>
             </Body>
         )

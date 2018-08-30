@@ -73,7 +73,7 @@ class Dashboard extends Component{
         this.state = {
             address: '',
             city: '',
-            myState: '',
+            my_state: '',
             zip: ''
         }
     }
@@ -85,6 +85,7 @@ class Dashboard extends Component{
         this.props.updateCity(e.target.value)
     }
     handleState = (e) => {
+        console.log(e.target.value)
         this.props.updateMyState(e.target.value)
     }
     handleZip = (e) => {
@@ -140,7 +141,7 @@ function mapStateToProps(reduxState){
     return{
         address: reduxState.address,
         city: reduxState.city,
-        myState: reduxState.myState,
+        myState: reduxState.my_state,
         zip: reduxState.zip
     }
 }

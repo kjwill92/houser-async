@@ -7,6 +7,8 @@ import inactive from './../icons/step_inactive.png';
 import completed from './../icons/step_completed.png';
 import {connect} from 'react-redux';
 import {updateDesired} from './../../dux/reducer';
+import axios from 'axios';
+
 
 const Body = styled.div`
     display: flex;
@@ -83,6 +85,23 @@ class Dashboard extends Component{
     handleDesiredRent = (e) => {
         this.props.updateDesired(e.target.value)
     }
+    createListing = () => {
+        console.log(this.props.my_state)
+        axios.post('/api/properties', {
+            property_name: this.props.name,
+            property_descrip: this.props.descrip,
+            address: this.props.address,
+            city: this.props.city,
+            myState: this.props.myState,
+            zip: this.props.zip,
+            img_url: this.props.img,
+            loan_amount: this.props.loan,
+            monthly_mortgage: this.props.monthlyMo,
+            desired_rent: this.props.desired
+        }).then(res => {
+            this.props.history.push('/dashboard')
+        })
+    }
 
     render(){
         return(
@@ -122,16 +141,25 @@ class Dashboard extends Component{
                     <br/>
                     <br/>
                     <Link to={'/wizard/4'}><Button3>Previous Step</Button3></Link>
-                    <Link to={'/dashboard'}><Button2>Complete</Button2></Link>
+                    <Button2 onClick={this.createListing}>Complete</Button2>
                 </Middle>
             </Body>
         )
     }
 }
 function mapStateToProps(reduxState){
+    console.log(44, reduxState)
     return{
-        desired: reduxState.desired_rent
+        desired: reduxState.desired_rent,
+        name: reduxState.property_name,
+        descrip: reduxState.property_descrip,
+        address: reduxState.address,
+        city: reduxState.city,
+        myState: reduxState.my_state,
+        zip: reduxState.zip,
+        img: reduxState.img_url,
+        loan: reduxState.loan_amount,
+        monthlyMo: reduxState.monthly_mortgage,
     }
 }
 export default connect(mapStateToProps, {updateDesired})(Dashboard);
-            

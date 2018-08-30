@@ -3,6 +3,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const massive = require('massive');
 const controller = require('./controller');
+const auth = require('./auth_controller');
 const session = require('express-session');
 
 
@@ -22,11 +23,11 @@ massive(process.env.CONNECTION_STRING).then(db => {
 })
 
 //auth endpoints
-app.post('/api/auth/login')
-app.post('/api/auth/register')
-app.post('/api/auth/logout')
+app.post('/api/auth/login', auth.login)
+app.post('/api/auth/register', auth.register)
+app.post('/api/auth/logout', auth.logout)
 //properties endpoints
-app.post('/api/properties')
+app.post('/api/properties', controller.create)
 app.get('/api/properties', controller.getHouses)
 app.delete('/api/properties/:id')
 

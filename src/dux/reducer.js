@@ -7,7 +7,7 @@ let initialState = {
     property_descrip: '',
     address: '',
     city: '',
-    myState: '',
+    my_state: '',
     zip: 0,
     img_url: '',
     loan_amount: 0,
@@ -30,6 +30,7 @@ const DESIRED = 'DESIRED';
 
 // reducer
 export default function reducer(state=initialState, action){
+    console.log(22, action)
     switch(action.type){
         // wizard 1
         case NAME:
@@ -42,7 +43,8 @@ export default function reducer(state=initialState, action){
         case CITY:
             return Object.assign({}, state, {city: action.payload})
         case MYSTATE:
-            return Object.assign({}, state, {myState: action.payload})
+            console.log(33, 'did this work')
+            return Object.assign({}, state, {my_state: action.payload})
         case ZIP:
             return Object.assign({}, state, {zip: action.payload})
         // wizard 3
@@ -86,10 +88,11 @@ export function updateCity(city){
         payload: city
     }
 }
-export function updateMyState(myState){
+export function updateMyState(my_state){
+    console.log(111, my_state)
     return{
         type: MYSTATE,
-        payload: myState
+        payload: my_state
     }
 }
 export function updateZip(zip){
