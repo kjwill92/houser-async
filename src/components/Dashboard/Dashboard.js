@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 import logo from './head_logo.png';
+import icon from './delete_icon.png';
 import styled from 'styled-components';
 
 const Body = styled.div`
@@ -102,7 +103,14 @@ class Dashboard extends Component{
             })
         })
     }
-
+    delete = (id) => {
+        console.log(66, id)
+        axios.delete(`/api/properties/${id}`).then(res => {
+            this.setState({
+                listings: res.data
+            })
+        })
+    }
     render(){
         let listingsDisplay = this.state.listings.map((el, i) => {
             return (
@@ -124,6 +132,9 @@ class Dashboard extends Component{
                         <li>State: {el.my_state}</li>
                         <li>Zip: {el.zip}</li>
                     </Other>
+                        <div onClick={() => this.delete(el.id)}>
+                            <img src={icon} alt=""/>
+                        </div>
                 </Listing>
             )
         })

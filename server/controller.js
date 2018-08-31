@@ -11,6 +11,9 @@ module.exports = {
 
     },
     remove: (req, res) => {
+        console.log(55, req.params.id, req.session.userId)
         const db = req.app.get('db');
+        const {id} = req.params
+        db.removeListing([id, req.session.userId]).then(listings => res.send(listings))
     }
 }

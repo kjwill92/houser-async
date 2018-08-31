@@ -29,7 +29,7 @@ app.post('/api/auth/logout', auth.logout)
 //properties endpoints
 app.post('/api/properties', controller.create)
 app.get('/api/properties', controller.getHouses)
-app.delete('/api/properties/:id')
+app.delete('/api/properties/:id', controller.remove)
 
 
 const port = process.env.SERVER_PORT || 3076;
