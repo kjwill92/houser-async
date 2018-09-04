@@ -18,6 +18,9 @@ const Middle = styled.div`
     height: 100%;
     background: linear-gradient(to bottom, #e2f3ea, #ffffff);
     padding: 10px;
+    > input {
+        width: 60px;
+    }
 `
 const Button = styled.button`
     background: #8aea92;
@@ -39,9 +42,7 @@ const Name = styled.div`
     }
     
 `
-const Pic = styled.div`
-    
-`
+const Pic = styled.div``
 const Other = styled.div`
     width: 40%;
     display: flex;
@@ -53,6 +54,20 @@ const Other = styled.div`
         list-style-type: none;
         padding-left: 8px;
     }
+`
+const Button2 = styled.button`
+    background: #8aea92;
+    color: black;
+    padding:4px 8px;
+    border-radius: 3px;
+    margin-left: 10px;
+`
+const Button3 = styled.button`
+    background: #3b5249;
+    color: white;
+    padding:4px 8px;
+    border-radius: 3px;
+    margin-left: 4px;
 `
 
 
@@ -94,7 +109,8 @@ class Dashboard extends Component{
     }
     handleReset = () => {
         this.setState({
-            price: 0
+            price: 0,
+            input: ''
         })
     }
     handleClick = () => {
@@ -148,8 +164,8 @@ class Dashboard extends Component{
                     <br/>
                     List properties with "desired rent" greator than: $ <input onChange={this.handleInput}
                         value={this.state.input} type="text"/>
-                    <button onClick={this.handleClick}>Filter</button>
-                    <button onClick={this.handleReset}>Reset</button>
+                    <Button2 onClick={this.handleClick}>Filter</Button2>
+                    <Button3 onClick={this.handleReset}>Reset</Button3>
                     <br/>
                     <br/>
                     <hr/>

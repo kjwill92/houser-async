@@ -21,7 +21,7 @@ const Container = styled.div`
         height: 220px;
         border: 1px solid black;
         position: relative;
-        left: 120px;
+        margin: auto;
     }
 
 `
@@ -32,6 +32,17 @@ const Middle = styled.div`
     padding: 10px;
     > div{
         display: flex;
+    }
+    > input {
+        width: 350px;
+    }
+    > img {
+        margin: 0px 25px;
+    }
+    > h3 {
+        text-align: left;
+        margin-left: 140px;
+        margin-bottom: 0
     }
 `
 const Top = styled.div`
@@ -50,6 +61,16 @@ const Button2 = styled.button`
     color: white;
     padding:6px 15px;
     border-radius: 3px;
+    position: absolute;
+    left: 35%;
+`
+const Button3 = styled.button`
+    background: #3b5249;
+    color: white;
+    padding:6px 15px;
+    border-radius: 3px;
+    position: absolute;
+    right: 35%;
 `
 //--->> CODE <<---
 class Dashboard extends Component{
@@ -95,7 +116,7 @@ class Dashboard extends Component{
                     <br/>
                     <br/>
                     <Link to={'/wizard/2'}><Button2>Previous Step</Button2></Link>
-                    <Link to={'/wizard/4'}><Button2>Next Step</Button2></Link>
+                    <Link to={'/wizard/4'}><Button3>Next Step</Button3></Link>
                 </Middle>
             </Body>
         )

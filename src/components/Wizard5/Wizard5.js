@@ -50,6 +50,17 @@ const Middle = styled.div`
     > div {
         display: flex;
     }
+    > input {
+        width: 350px;
+    }
+    > img {
+        margin: 0px 25px;
+    }
+    > h3 {
+        text-align: left;
+        margin-left: 140px;
+        margin-bottom: 0
+    }
 `
 const Top = styled.div`
     display: flex;
@@ -67,12 +78,16 @@ const Button2 = styled.button`
     color: black;
     padding:6px 15px;
     border-radius: 3px;
+    position: absolute;
+    right: 35%;
 `
 const Button3 = styled.button`
     background: #3b5249;
     color: white;
     padding:6px 15px;
     border-radius: 3px;
+    position: absolute;
+    left: 35%;
 `
 
 class Dashboard extends Component{

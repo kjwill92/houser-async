@@ -22,6 +22,17 @@ const Middle = styled.div`
     > div {
         display: flex;
     }
+    > img {
+        margin: 0px 25px;
+    }
+    > input {
+        width: 350px
+    }
+    > h3 {
+        text-align: left;
+        margin-left: 140px;
+        margin-bottom: 0
+    }
 `
 const Top = styled.div`
     display: flex;
@@ -89,7 +100,7 @@ class Dashboard extends Component{
                         <h3>Property Name</h3><input type="text" onChange={this.handlePropName} value={this.props.name}/>
                         <br/>
                         <h3>Property Description </h3>
-                        <textarea name="" id="" cols="70" rows="10" onChange={this.handlePropDescrip} value={this.props.descrip}></textarea>
+                        <textarea name="" id="" cols="56" rows="5" onChange={this.handlePropDescrip} value={this.props.descrip}></textarea>
                         <br/>
                         <br/>
                         <Link to={'/wizard/2'}><Button2>Next Step</Button2></Link>

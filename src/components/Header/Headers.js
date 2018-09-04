@@ -28,6 +28,7 @@ const Div2 = styled.div`
     left: 444px;
     > h2 {
         color: white;
+        font-weight: normal;
         }
 `
 const Logo = styled.div`

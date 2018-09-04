@@ -15,12 +15,27 @@ const Middle = styled.div`
     height: 100%;
     background: white;
     padding: 10px;
+    > div {
+        position: relative;
+        top: 120px;
+    }
+`
+const Login = styled.div`
+    > input {
+        width: 350px;
+    }
+    > h3 {
+        text-align: left;
+        margin-left: 140px;
+        margin-bottom: 0
+    }
 `
 const Button = styled.button`
     background: #8aea92;
     color: black;
     padding:6px 15px;
     border-radius: 3px;
+    margin-right: 10px;
 `
 const Button2 = styled.button`
     background: #3b5249;
@@ -73,16 +88,18 @@ class Auth extends Component{
         return(
             <Body>
                 <Middle>
-                    <img src={logo} alt=""/>
-                    <br/>
-                    <br/>
-                    Username <input onChange={this.handleName} type="text"/>
-                    <br/>
-                    Password <input onChange={this.handlePass} type="text"/>
-                    <br/>
-                    <br/>
-                    <Button onClick={this.login} >Login</Button>
-                    <Button2 onClick={this.register} >Register</Button2>
+                    <Login>
+                        <img src={logo} alt=""/>
+                        <br/>
+                        <br/>
+                        <h3>Username</h3><input onChange={this.handleName} type="text"/>
+                        <br/>
+                        <h3>Password</h3><input onChange={this.handlePass} type="text"/>
+                        <br/>
+                        <br/>
+                        <Button onClick={this.login} >Login</Button>
+                        <Button2 onClick={this.register} >Register</Button2>
+                    </Login>
                 </Middle>
             </Body>
         )

@@ -16,30 +16,6 @@ const Body = styled.div`
     background: #afd4c0;
     height: 100vh;
 `
-// const Header = styled.div`
-//     width: 100%;
-//     height: 65px;
-//     background: #519872;
-//     display: flex;
-//     align-content: center;
-//     > h4 {
-//         position: absolute;
-//         right: 290px;
-//         color: white;
-//     }
-//     > div{
-//         padding-left: 10px;
-//         > h2 {
-//         color: white;
-//         }
-//     }
-// `
-// const Logo = styled.div`
-//     > img{
-//         width: 35px;
-//         padding-top: 17px;
-//     }
-// `
 const Middle = styled.div`
     width: 50%;
     height: 100%;
@@ -47,6 +23,17 @@ const Middle = styled.div`
     padding: 10px;
     > div {
         display: flex;
+    }
+    > img {
+        margin: 0px 25px;
+    }
+    > input {
+        width: 350px;
+    }
+    > h3 {
+        text-align: left;
+        margin-left: 140px;
+        margin-bottom: 0
     }
 `
 const Top = styled.div`
@@ -59,12 +46,23 @@ const Button = styled.button`
     font-size: 18px;
     padding: 4px;
     border-radius: 3px;
+    
 `
 const Button2 = styled.button`
     background: #3b5249;
     color: white;
     padding:6px 15px;
     border-radius: 3px;
+    position: absolute;
+    left: 35%;
+`
+const Button3 = styled.button`
+    background: #3b5249;
+    color: white;
+    padding:6px 15px;
+    border-radius: 3px;
+    position: absolute;
+    right: 35%;
 `
 
 
@@ -113,7 +111,7 @@ class Dashboard extends Component{
                     <br/>
                     <br/>
                     <Link to={'/wizard/3'}><Button2>Previous Step</Button2></Link>
-                    <Link to={'/wizard/5'}><Button2>Next Step</Button2></Link>
+                    <Link to={'/wizard/5'}><Button3>Next Step</Button3></Link>
                 </Middle>
             </Body>
         )
