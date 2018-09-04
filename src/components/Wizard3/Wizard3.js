@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-import logo from './head_logo.png';
 import styled from 'styled-components';
 import active from './../icons/step_active.png';
 import inactive from './../icons/step_inactive.png';
 import completed from './../icons/step_completed.png';
 import {connect} from 'react-redux';
-import {updateImg} from './../../dux/reducer';
+import {updateImg, resetValues} from './../../dux/reducer';
+import Headers from './../Header/Headers';
 
 const Body = styled.div`
     display: flex;
@@ -15,29 +15,15 @@ const Body = styled.div`
     background: #afd4c0;
     height: 100vh;
 `
-const Header = styled.div`
-    width: 100%;
-    height: 65px;
-    background: #519872;
-    display: flex;
-    align-content: center;
-    > h4 {
-        position: absolute;
-        right: 290px;
-        color: white;
+const Container = styled.div`
+    > img {
+        width: 380px;
+        height: 220px;
+        border: 1px solid black;
+        position: relative;
+        left: 120px;
     }
-    > div{
-        padding-left: 10px;
-        > h2 {
-        color: white;
-        }
-    }
-`
-const Logo = styled.div`
-    > img{
-        width: 35px;
-        padding-top: 17px;
-    }
+
 `
 const Middle = styled.div`
     width: 50%;
@@ -65,7 +51,7 @@ const Button2 = styled.button`
     padding:6px 15px;
     border-radius: 3px;
 `
-
+//--->> CODE <<---
 class Dashboard extends Component{
     constructor(){
         super()
@@ -77,26 +63,18 @@ class Dashboard extends Component{
     handleImgUrl = (e) => {
         this.props.updateImg(e.target.value)
     }
+    handleCancel = () => {
+        this.props.resetValues()
+    }
 
     render(){
         return(
             <Body>
-                <Header>
-                    <Logo>
-                        <img src={logo} alt=""/>
-                    </Logo>
-                    <div>
-                        <h2>Houser</h2>
-                    </div>
-                    <div>
-                        <h2>Dashboard</h2>
-                    </div>
-                    <h4>Logout</h4>
-                </Header>
+                <Headers/>
                 <Middle>
                     <Top>
                         <h3>Add new listing</h3>
-                        <Link to={'/dashboard'}><Button>Cancel</Button></Link>
+                        <Link to={'/dashboard'}><Button onClick={this.handleCancel}>Cancel</Button></Link>
                     </Top>
                     <br/>
                     Step 3
@@ -110,7 +88,9 @@ class Dashboard extends Component{
                         <img src={inactive} alt=""/>
                     <div/>
                     <br/>
-                    image container
+                    <Container>
+                        <img src={this.props.img} value={this.props.img} alt=""/>
+                    </Container>
                     <h3>Image URL</h3><input onChange={this.handleImgUrl} value={this.props.img} type="text"/>
                     <br/>
                     <br/>
@@ -126,7 +106,7 @@ function mapStateToProps(reduxState){
         img: reduxState.img_url
     }
 }
-export default connect(mapStateToProps, {updateImg})(Dashboard);
+export default connect(mapStateToProps, {updateImg, resetValues})(Dashboard);
 
             
             

@@ -6,7 +6,8 @@ import active from './../icons/step_active.png';
 import inactive from './../icons/step_inactive.png';
 import completed from './../icons/step_completed.png';
 import {connect} from 'react-redux';
-import {updateLoan, updateMonthlyMo} from './../../dux/reducer';
+import {updateLoan, updateMonthlyMo, resetValues} from './../../dux/reducer';
+import Headers from './../Header/Headers';
 
 const Body = styled.div`
     display: flex;
@@ -15,30 +16,30 @@ const Body = styled.div`
     background: #afd4c0;
     height: 100vh;
 `
-const Header = styled.div`
-    width: 100%;
-    height: 65px;
-    background: #519872;
-    display: flex;
-    align-content: center;
-    > h4 {
-        position: absolute;
-        right: 290px;
-        color: white;
-    }
-    > div{
-        padding-left: 10px;
-        > h2 {
-        color: white;
-        }
-    }
-`
-const Logo = styled.div`
-    > img{
-        width: 35px;
-        padding-top: 17px;
-    }
-`
+// const Header = styled.div`
+//     width: 100%;
+//     height: 65px;
+//     background: #519872;
+//     display: flex;
+//     align-content: center;
+//     > h4 {
+//         position: absolute;
+//         right: 290px;
+//         color: white;
+//     }
+//     > div{
+//         padding-left: 10px;
+//         > h2 {
+//         color: white;
+//         }
+//     }
+// `
+// const Logo = styled.div`
+//     > img{
+//         width: 35px;
+//         padding-top: 17px;
+//     }
+// `
 const Middle = styled.div`
     width: 50%;
     height: 100%;
@@ -82,26 +83,18 @@ class Dashboard extends Component{
     handleMonthly = (e)=> {
         this.props.updateMonthlyMo(e.target.value)
     }
+    handleCancel = () => {
+        this.props.resetValues()
+    }
 
     render(){
         return(
             <Body>
-                <Header>
-                    <Logo>
-                        <img src={logo} alt=""/>
-                    </Logo>
-                    <div>
-                        <h2>Houser</h2>
-                    </div>
-                    <div>
-                        <h2>Dashboard</h2>
-                    </div>
-                    <h4>Logout</h4>
-                </Header>
+                <Headers/>
                 <Middle>
                     <Top>
                         <h3>Add new listing</h3>
-                        <Link to={'/dashboard'}><Button>Cancel</Button></Link>
+                        <Link to={'/dashboard'}><Button onClick={this.handleCancel}>Cancel</Button></Link>
                     </Top>
                     <br/>
                     Step 4
@@ -132,5 +125,5 @@ function mapStateToProps(reduxState){
         monthlyMo: reduxState.monthly_mortgage
     }
 }
-export default connect(mapStateToProps, {updateLoan, updateMonthlyMo})(Dashboard);
+export default connect(mapStateToProps, {updateLoan, updateMonthlyMo, resetValues})(Dashboard);
            

@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-import logo from './head_logo.png';
 import styled from 'styled-components';
 import active from './../icons/step_active.png';
 import inactive from './../icons/step_inactive.png';
 import {connect} from 'react-redux';
-import {updateName, updateDescrip} from './../../dux/reducer';
+import {updateName, updateDescrip, resetValues} from './../../dux/reducer';
+import Headers from './../Header/Headers';
 
 const Body = styled.div`
     display: flex;
@@ -13,30 +13,6 @@ const Body = styled.div`
     align-items: center;
     background: #afd4c0;
     height: 100vh;
-`
-const Header = styled.div`
-    width: 100%;
-    height: 65px;
-    background: #519872;
-    display: flex;
-    align-content: center;
-    > h4 {
-        position: absolute;
-        right: 290px;
-        color: white;
-    }
-    > div{
-        padding-left: 10px;
-        > h2 {
-        color: white;
-        }
-    }
-`
-const Logo = styled.div`
-    > img{
-        width: 35px;
-        padding-top: 17px;
-    }
 `
 const Middle = styled.div`
     width: 50%;
@@ -82,6 +58,9 @@ class Dashboard extends Component{
     handlePropDescrip = (e) => {
         this.props.updateDescrip(e.target.value)
     }
+    handleCancel = () => {
+        this.props.resetValues()
+    }
     // handleChange = () => {
     //     this.props.updateName(this.state.property_name)
     //     this.props.updateDescrip(this.state.property_descrip)
@@ -90,22 +69,11 @@ class Dashboard extends Component{
     render(){
         return(
             <Body>
-                <Header>
-                    <Logo>
-                        <img src={logo} alt=""/>
-                    </Logo>
-                    <div>
-                        <h2>Houser</h2>
-                    </div>
-                    <div>
-                        <h2>Dashboard</h2>
-                    </div>
-                    <h4>Logout</h4>
-                </Header>
+                <Headers/>
                 <Middle>
                     <Top>
                         <h3>Add new listing</h3>
-                        <Link to={'/dashboard'}><Button>Cancel</Button></Link>
+                        <Link to={'/dashboard'}><Button onClick={this.handleCancel}>Cancel</Button></Link>
                     </Top>
                         <br/>
                         Step 1
@@ -137,4 +105,4 @@ function mapStateToProps(reduxState){
         descrip: reduxState.property_descrip       
     }
 }
-export default connect(mapStateToProps, {updateName, updateDescrip})(Dashboard);
+export default connect(mapStateToProps, {updateName, updateDescrip, resetValues})(Dashboard);

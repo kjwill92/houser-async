@@ -26,6 +26,7 @@ const IMG = 'IMG';
 const LOAN = 'LOAN';
 const MONTHLYMO = 'MONTHLYMO';
 const DESIRED = 'DESIRED';
+const RESET_INFO = 'RESET_INFO'
 
 
 // reducer
@@ -58,6 +59,8 @@ export default function reducer(state=initialState, action){
         // wizard 5
         case DESIRED:
             return Object.assign({}, state, {desired_rent: action.payload})
+        case RESET_INFO:
+            return initialState
         default: 
             return state;
     }
@@ -123,5 +126,10 @@ export function updateDesired(desired_rent){
     return{
         type: DESIRED,
         payload: desired_rent
+    }
+}
+export function resetValues(){
+    return {
+        type: RESET_INFO
     }
 }

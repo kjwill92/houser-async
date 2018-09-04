@@ -1,50 +1,17 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
-import logo from './head_logo.png';
 import icon from './delete_icon.png';
 import styled from 'styled-components';
+import Headers from './../Header/Headers';
+
 
 const Body = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
     background: #afd4c0;
-    height: 100%;
-`
-const Header = styled.div`
-    width: 100%;
-    height: 65px;
-    background: #519872;
-    display: flex;
-    align-content: center;
-    > h4{
-        position: absolute;
-        right: 310px;
-        color: white;
-    }
-`
-const Div1 = styled.div`
-    position: absolute;
-    left: 350px;
-    > h2 {
-        color: white;
-        }
-`
-const Div2 = styled.div`
-    position: absolute;
-    left: 444px;
-    > h2 {
-        color: white;
-        }
-`
-const Logo = styled.div`
-    position: absolute;
-    left: 300px;
-    > img{
-        width: 35px;
-        padding-top: 17px;
-    }
+    height: 100vh;
 `
 const Middle = styled.div`
     width: 50%;
@@ -93,7 +60,10 @@ class Dashboard extends Component{
     constructor(){
         super()
         this.state = {
-            listings: []
+            listings: [],
+            price: 0,
+            input: ''
+            
         }
     }
     componentDidMount(){
@@ -111,8 +81,38 @@ class Dashboard extends Component{
             })
         })
     }
+    logout = () => {
+        axios.post('/api/auth/logout').then(res => {
+            console.log('tis working')
+            this.props.history.push('/')
+        })
+    }
+    handleInput = (e) => {
+        this.setState({
+            input: e.target.value
+        })
+    }
+    handleReset = () => {
+        this.setState({
+            price: 0
+        })
+    }
+    handleClick = () => {
+        this.setState({
+            price: this.state.input
+        })
+    }
+
     render(){
-        let listingsDisplay = this.state.listings.map((el, i) => {
+        let listingsDisplay = this.state.listings.filter((item, index)=>{
+            let stringd = item.desired_rent.substring(1)
+            console.log(1123, stringd, this.state.input)
+            if( stringd > this.state.price){
+                return true
+            } else {
+                return false
+            }
+        }).map((el, i) => {
             return (
                 <Listing key={i}>
                     <Pic>
@@ -141,25 +141,15 @@ class Dashboard extends Component{
 
         return(
             <Body>
-                <Header>
-                    <Logo>
-                        <img src={logo} alt=""/>
-                    </Logo>
-                    <Div1>
-                        <h2>Houser</h2>
-                    </Div1>
-                    <Div2>
-                        <h2>Dashboard</h2>
-                    </Div2>
-                    <h4>Logout</h4>
-                </Header>
+                <Headers/>
                 <Middle>
                     <Link to={'/wizard/1'}><Button>Add new property</Button></Link>
                     <br/>
                     <br/>
-                    List properties with "desired rent" greator than: $ <input type="text"/>
-                    <button>Filter</button>
-                    <button>Reset</button>
+                    List properties with "desired rent" greator than: $ <input onChange={this.handleInput}
+                        value={this.state.input} type="text"/>
+                    <button onClick={this.handleClick}>Filter</button>
+                    <button onClick={this.handleReset}>Reset</button>
                     <br/>
                     <br/>
                     <hr/>

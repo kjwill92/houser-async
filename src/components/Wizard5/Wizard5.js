@@ -6,8 +6,9 @@ import active from './../icons/step_active.png';
 import inactive from './../icons/step_inactive.png';
 import completed from './../icons/step_completed.png';
 import {connect} from 'react-redux';
-import {updateDesired} from './../../dux/reducer';
+import {updateDesired, resetValues} from './../../dux/reducer';
 import axios from 'axios';
+import Headers from './../Header/Headers';
 
 
 const Body = styled.div`
@@ -17,30 +18,30 @@ const Body = styled.div`
     background: #afd4c0;
     height: 100vh;
 `
-const Header = styled.div`
-    width: 100%;
-    height: 65px;
-    background: #519872;
-    display: flex;
-    align-content: center;
-    > h4 {
-        position: absolute;
-        right: 290px;
-        color: white;
-    }
-    > div{
-        padding-left: 10px;
-        > h2 {
-        color: white;
-        }
-    }
-`
-const Logo = styled.div`
-    > img{
-        width: 35px;
-        padding-top: 17px;
-    }
-`
+// const Header = styled.div`
+//     width: 100%;
+//     height: 65px;
+//     background: #519872;
+//     display: flex;
+//     align-content: center;
+//     > h4 {
+//         position: absolute;
+//         right: 290px;
+//         color: white;
+//     }
+//     > div{
+//         padding-left: 10px;
+//         > h2 {
+//         color: white;
+//         }
+//     }
+// `
+// const Logo = styled.div`
+//     > img{
+//         width: 35px;
+//         padding-top: 17px;
+//     }
+// `
 const Middle = styled.div`
     width: 50%;
     height: 100%;
@@ -81,10 +82,15 @@ class Dashboard extends Component{
             desired_rent: ''
         }
     }
+    
+    handleCancel = () => {
+        this.props.resetValues()
+    }
 
     handleDesiredRent = (e) => {
         this.props.updateDesired(e.target.value)
     }
+
     createListing = () => {
         console.log(this.props.my_state)
         axios.post('/api/properties', {
@@ -99,29 +105,20 @@ class Dashboard extends Component{
             monthly_mortgage: this.props.monthlyMo,
             desired_rent: this.props.desired
         }).then(res => {
+            this.props.resetValues()
             this.props.history.push('/dashboard')
         })
     }
 
     render(){
+        const sum = +this.props.monthlyMo * 1.25
         return(
             <Body>
-                <Header>
-                    <Logo>
-                        <img src={logo} alt=""/>
-                    </Logo>
-                    <div>
-                        <h2>Houser</h2>
-                    </div>
-                    <div>
-                        <h2>Dashboard</h2>
-                    </div>
-                    <h4>Logout</h4>
-                </Header>
+                <Headers/>
                 <Middle>
                     <Top>
                         <h3>Add new listing</h3>
-                        <Link to={'/dashboard'}><Button>Cancel</Button></Link>
+                        <Link to={'/dashboard'}><Button onClick={this.handleCancel}>Cancel</Button></Link>
                     </Top>
                     <br/>
                     Step 5
@@ -135,7 +132,7 @@ class Dashboard extends Component{
                         <img src={active} alt=""/>
                     <div/>
                     <br/>
-                    Recommended Rent $...
+                    Recommended Rent ${sum}
                     <br/>
                     <h3>Desired Rent</h3> <input onChange={this.handleDesiredRent} value={this.props.desired}type="text"/>
                     <br/>
@@ -162,4 +159,4 @@ function mapStateToProps(reduxState){
         monthlyMo: reduxState.monthly_mortgage,
     }
 }
-export default connect(mapStateToProps, {updateDesired})(Dashboard);
+export default connect(mapStateToProps, {updateDesired, resetValues})(Dashboard);
